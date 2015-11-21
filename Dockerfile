@@ -24,8 +24,10 @@ RUN cd /usr/src \
     && make \
     && make install
 
-RUN ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/nginx
 RUN rm -rf /usr/src
+
+RUN ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/nginx
+RUN ln -s /usr/local/nginx/logs /var/logs
 
 RUN apt-get remove -y build-essential unzip wget --purge
 RUN apt-get autoremove -y --purge
