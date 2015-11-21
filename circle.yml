@@ -2,7 +2,6 @@ machine:
   services:
     - docker
   pre:
-    - sudo apt-get install tar
     - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 10
     - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 10
     - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20
@@ -11,6 +10,10 @@ machine:
     - sudo chmod 0755 /usr/bin/docker
     - sudo wget https://github.com/jwilder/docker-squash/releases/download/v0.2.0/docker-squash-linux-amd64-v0.2.0.tar.gz
     - sudo tar -C /usr/local/bin -xzvf docker-squash-linux-amd64-v0.2.0.tar.gz
+
+dependencies:
+  pre:
+    - sudo apt-get update; sudo apt-get install tar
 
 test:
   override:
