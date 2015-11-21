@@ -12,10 +12,6 @@ machine:
     - sudo tar -C /usr/local/bin -xzvf docker-squash-linux-amd64-v0.2.0.tar.gz
     - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
 
-dependencies:
-  override:
-    - sudo pip install --upgrade docker-compose\<=1.5
-
 test:
   override:
     - docker build -t "66pix/nginx-pagespeed:$CIRCLE_BUILD_NUM-layered" .
