@@ -14,11 +14,11 @@ RUN cd /usr/src \
    && unzip -qq release-${NPS_VERSION}-beta.zip \
    && cd ngx_pagespeed-release-${NPS_VERSION}-beta/ \
    && wget -q https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}.tar.gz \
-   && tar --no-samve-owner -xzf ${NPS_VERSION}.tar.gz  # extracts to psol/
+   && tar --no-same-owner -xzf ${NPS_VERSION}.tar.gz  # extracts to psol/
 
 RUN cd /usr/src \
     && wget -q http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz \
-    && tar --no-samve-owner -xzf nginx-${NGINX_VERSION}.tar.gz \
+    && tar --no-same-owner -xzf nginx-${NGINX_VERSION}.tar.gz \
     && cd nginx-${NGINX_VERSION}/ \
     && ./configure --add-module=/usr/src/ngx_pagespeed-release-${NPS_VERSION}-beta \
     && make \
