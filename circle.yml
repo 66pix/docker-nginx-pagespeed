@@ -1,0 +1,33 @@
+machine:
+  node:
+    version: 5
+  services:
+    - docker
+  pre:
+    - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 10
+    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 10
+    - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20
+    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 20
+    - sudo curl -L -o /usr/bin/docker 'https://s3-external-1.amazonaws.com/circle-downloads/docker-1.9.0-circleci'
+    - sudo chmod 0755 /usr/bin/docker
+    - sudo wget https://github.com/jwilder/docker-squash/releases/download/v0.2.0/docker-squash-linux-amd64-v0.2.0.tar.gz
+    - sudo tar -C /usr/local/bin -xzvf docker-squash-linux-amd64-v0.2.0.tar.gz
+    - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
+
+dependencies:
+  override:
+    - sudo pip install --upgrade docker-compose\<=1.5
+
+test:
+  override:
+    - docker build -t "66pix/nginx-pagespeed:$CIRCLE_BUILD_NUM-layered" .
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - docker save "66pix/nginx-pagespeed:$CIRCLE_BUILD_NUM-layered" > layered.tar
+      - docker-squash -i layered.tar -o squashed.tar -t "66pix/nginx-pagespeed:$CIRCLE_BUILD_NUM"
+      - cat squashed.tar | docker load
+      - docker push "66pix/nginx-pagespeed:$CIRCLE_BUILD_NUM"
+
