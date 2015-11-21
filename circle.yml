@@ -30,4 +30,7 @@ deployment:
       - cat squashed.tar | docker load
       - docker images
       - docker push "66pix/nginx-pagespeed:$CIRCLE_BUILD_NUM"
+      - sudo docker-squash -from root -i layered.tar -o squashed.tar -t "66pix/nginx-pagespeed:latest"
+      - cat squashed.tar | docker load
+      - docker push "66pix/nginx-pagespeed:latest"
 
