@@ -10,7 +10,6 @@ machine:
     - sudo chmod 0755 /usr/bin/docker
     - sudo wget https://github.com/jwilder/docker-squash/releases/download/v0.2.0/docker-squash-linux-amd64-v0.2.0.tar.gz
     - sudo tar -C /usr/local/bin -xzvf docker-squash-linux-amd64-v0.2.0.tar.gz
-    - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
 
 test:
   override:
@@ -20,6 +19,7 @@ deployment:
   production:
     branch: master
     commands:
+      - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
       - docker save "66pix/nginx-pagespeed:$CIRCLE_BUILD_NUM-layered" > layered.tar
       - docker-squash -i layered.tar -o squashed.tar -t "66pix/nginx-pagespeed:$CIRCLE_BUILD_NUM"
       - cat squashed.tar | docker load
