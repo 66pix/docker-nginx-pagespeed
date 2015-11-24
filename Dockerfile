@@ -29,6 +29,9 @@ RUN rm -rf /usr/src
 RUN ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/nginx
 RUN ln -s /usr/local/nginx/logs /var/logs
 
+RUN mkdir -p /var/pagespeed/cache
+RUN chown -R www-data:www-data /var/pagespeed/cache
+
 RUN apt-get remove -y build-essential unzip wget --purge
 RUN apt-get autoremove -y --purge
 
