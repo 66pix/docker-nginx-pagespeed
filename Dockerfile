@@ -7,7 +7,7 @@ RUN echo "Pacific/Auckland" > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
 RUN apt-get update
-RUN apt-get -y install build-essential zlib1g-dev libpcre3 libpcre3-dev unzip wget
+RUN apt-get -y install build-essential zlib1g-dev libpcre3 libpcre3-dev unzip wget libssl-dev
 
 RUN cd /usr/src \
    && wget -q https://github.com/pagespeed/ngx_pagespeed/archive/release-${NPS_VERSION}-beta.zip \
@@ -20,7 +20,7 @@ RUN cd /usr/src \
     && wget -q http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz \
     && tar --no-same-owner -xzf nginx-${NGINX_VERSION}.tar.gz \
     && cd nginx-${NGINX_VERSION}/ \
-    && ./configure --add-module=/usr/src/ngx_pagespeed-release-${NPS_VERSION}-beta \
+    && ./configure --add-module=/usr/src/ngx_pagespeed-release-${NPS_VERSION}-beta --with-http_ssl_module \
     && make \
     && make install
 
