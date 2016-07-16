@@ -5,9 +5,14 @@ set -o errexit
 
 printenv
 
-TAG="66pix/nginx-pagespeed:$LAMBCI_BUILD_NUM-layered"
-TAG_SQUASHED="66pix/nginx-pagespeed:$LAMBCI_BUILD_NUM"
+LAMBCI_BUILD_NUM_TRIMMED="$(echo -e "${LAMBCI_BUILD_NUM}" | tr -d '[[:space:]]')"
+TAG="66pix/nginx-pagespeed:$LAMBCI_BUILD_NUM_TRIMMED-layered"
+TAG_SQUASHED="66pix/nginx-pagespeed:$LAMBCI_BUILD_NUM_TRIMMED"
 TAG_LATEST="66pix/nginx-pagespeed:latest"
+
+echo "Tag: $TAG"
+echo "Tag: $TAG_SQUASHED"
+echo "Tag: $TAG_LATEST"
 
 docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
 
