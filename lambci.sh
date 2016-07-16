@@ -30,7 +30,7 @@ sleep 1
 # echo "Saving $TAG"
 # docker save "$TAG" > layered.tar
 echo "Squashing $TAG to $TAG_SQUASHED"
-docker export "$TAG" | docker import - $TAG_SQUASHED
+docker export $(docker images -q $TAG) | docker import - $TAG_SQUASHED
 
 sleep 1
 
