@@ -3,8 +3,6 @@
 set -o nounset
 set -o errexit
 
-printenv
-
 LAMBCI_BUILD_NUM_TRIMMED="$(echo -e "${LAMBCI_BUILD_NUM}" | tr -d '[[:space:]]')"
 TAG="66pix/nginx-pagespeed:$LAMBCI_BUILD_NUM_TRIMMED-layered"
 TAG_SQUASHED="66pix/nginx-pagespeed:$LAMBCI_BUILD_NUM_TRIMMED"
@@ -17,17 +15,21 @@ echo "Tag: $TAG_LATEST"
 docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
 
 echo "Building $TAG"
-docker build -t $TAG .
+docker build -t "$TAG" .
+
+echo "Image check"
 docker images
 
 echo "Saving $TAG"
-docker save $TAG > layered.tar
+docker save "$TAG" > layered.tar
 
 echo "Squashing $TAG"
 docker-squash -from root -i layered.tar -o squashed.tar -t $TAG_SQUASHED
 
 echo "Loading $TAG_SQUASHED"
 cat squashed.tar | docker load
+
+echo "Image check"
 docker images
 
 echo "Pushing $TAG_SQUASHED"
@@ -38,6 +40,9 @@ docker-squash -from root -i layered.tar -o squashed.tar -t $TAG_LATEST
 
 echo "Squashing latest"
 cat squashed.tar | docker load
+
+echo "Image check"
+docker images
 
 echo "Pushing latest"
 docker push $TAG_LATEST
