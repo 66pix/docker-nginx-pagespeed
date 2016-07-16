@@ -6,9 +6,10 @@ set -o nounset
 set -o errexit
 
 LAMBCI_BUILD_NUM_TRIMMED="$(echo -e "${LAMBCI_BUILD_NUM}" | tr -d '[[:space:]]')"
-TAG="66pix/nginx-pagespeed:${LAMBCI_BUILD_NUM_TRIMMED}-layered"
-TAG_SQUASHED="66pix/nginx-pagespeed:${LAMBCI_BUILD_NUM_TRIMMED}"
-TAG_LATEST="66pix/nginx-pagespeed:latest"
+NAME="66pix/nginx-pagespeed"
+TAG="${NAME}:${LAMBCI_BUILD_NUM_TRIMMED}-layered"
+TAG_SQUASHED="${NAME}:${LAMBCI_BUILD_NUM_TRIMMED}"
+TAG_LATEST="${NAME}:latest"
 
 echo "Tag: $TAG"
 echo "Tag: $TAG_SQUASHED"
@@ -20,7 +21,7 @@ echo "Building $TAG"
 docker build -t "${TAG}" .
 
 echo "Image check"
-docker images "$TAG"
+docker images "$NAME"
 
 # echo "Saving $TAG"
 # docker save "$TAG" > layered.tar
