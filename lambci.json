@@ -1,4 +1,5 @@
 {
+  "cmd": "./lambci.sh",
   "docker": {
     "cluster": "lambci-ecs-Cluster-1L3R71YGHV605",
     "task": "lambci-ecs-BuildTask-1O10LW56SQ09B:1"
