@@ -38,4 +38,3 @@ RUN apt-get autoremove -y --purge
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
-
