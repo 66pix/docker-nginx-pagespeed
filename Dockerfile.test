@@ -1,11 +1,12 @@
-FROM alpine:3.4
+FROM docker:dind
 
 WORKDIR /src
 
-RUN apk add --no-cache bash docker tar wget
 RUN wget https://github.com/jwilder/docker-squash/releases/download/v0.2.0/docker-squash-linux-amd64-v0.2.0.tar.gz
 RUN tar -C /usr/local/bin -xzvf docker-squash-linux-amd64-v0.2.0.tar.gz
 
 ADD . .
 
-CMD ./lambci.sh
+RUN ls -lh
+
+CMD lambci.sh
