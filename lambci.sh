@@ -29,10 +29,10 @@ docker-squash -from root -i layered.tar -o squashed.tar -t "$TAG_SQUASHED"
 echo "Loading $TAG_SQUASHED"
 cat squashed.tar | docker load
 
-exit 1
+echo "Image check"
+docker images
 
-# echo "Image check"
-# docker images
+exit 1
 
 # echo "Pushing $TAG_SQUASHED"
 # docker push "$TAG_SQUASHED"
