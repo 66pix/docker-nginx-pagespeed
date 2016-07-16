@@ -1,5 +1,7 @@
 #!/bin/bash
 
+whoami
+
 set -o nounset
 set -o errexit
 
@@ -41,7 +43,7 @@ echo "Pushing $TAG"
 docker push "$TAG"
 
 echo "Creating latest from $TAG"
-docker-squash -from root -i layered.tar -o squashed.tar -t "$TAG_LATEST"
+docker-squash -i layered.tar -o squashed.tar -t "$TAG_LATEST"
 
 echo "Squashing latest"
 cat squashed.tar | docker load
