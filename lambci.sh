@@ -6,7 +6,7 @@ set -o errexit
 LAMBCI_BUILD_NUM_TRIMMED="$(echo -e "${LAMBCI_BUILD_NUM}" | tr -d '[[:space:]]')"
 NAME="66pix/nginx-pagespeed"
 TAG="${NAME}:${LAMBCI_BUILD_NUM_TRIMMED}-layered"
-TAG="${NAME}:${LAMBCI_BUILD_NUM_TRIMMED}"
+TAG_SQUASHED="${NAME}:${LAMBCI_BUILD_NUM_TRIMMED}"
 TAG_LATEST="${NAME}:latest"
 
 echo "Tag: $TAG"
