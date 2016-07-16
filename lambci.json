@@ -1,33 +1,34 @@
 {
-  "cmd": "./lambci.sh",
-  "docker": {
-    "cluster": "lambci-ecs-Cluster-1L3R71YGHV605",
-    "task": "lambci-ecs-BuildTask-1O10LW56SQ09B:1"
-  },
-  "build": true,
-  "branches": {
-    "master": {
-      "notifications": {
-        "slack": {
-          "channel": "#ci"
-        }
-      }
+  "lambci": {
+    "cmd": "./lambci.sh",
+    "docker": {
+      "cluster": "lambci-ecs-Cluster-1L3R71YGHV605",
+      "task": "lambci-ecs-BuildTask-1O10LW56SQ09B:1"
     },
-    "develop": {
-      "notifications": {
-        "slack": {
-          "channel": "#ci"
+    "build": true,
+    "branches": {
+      "master": {
+        "notifications": {
+          "slack": {
+            "channel": "#ci"
+          }
         }
-      }
-    },
-    "/feature\/.*/": {
-      "build": true,
-      "notifications": {
-        "slack": {
-          "channel": "#staging-ci"
+      },
+      "develop": {
+        "notifications": {
+          "slack": {
+            "channel": "#ci"
+          }
+        }
+      },
+      "/feature\/.*/": {
+        "build": true,
+        "notifications": {
+          "slack": {
+            "channel": "#staging-ci"
+          }
         }
       }
     }
   }
-
 }

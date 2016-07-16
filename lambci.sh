@@ -3,7 +3,7 @@
 set -o nounset
 set -o errexit
 
-ENV
+printenv
 
 exit 1
 
