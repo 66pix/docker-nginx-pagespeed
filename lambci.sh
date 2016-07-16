@@ -24,7 +24,7 @@ echo "Saving $TAG"
 docker save "$TAG" > layered.tar
 
 echo "Squashing $TAG"
-docker-squash -from root -i layered.tar -o squashed.tar -t "$TAG_SQUASHED"
+docker-squash -i layered.tar -o squashed.tar -t "$TAG_SQUASHED"
 
 echo "Loading $TAG_SQUASHED"
 cat squashed.tar | docker load
