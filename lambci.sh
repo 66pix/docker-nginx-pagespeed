@@ -1,6 +1,8 @@
 #!/bin/bash
 
-whoami
+tar --version
+
+exit
 
 set -o nounset
 set -o errexit
