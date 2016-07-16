@@ -25,7 +25,7 @@ docker images
 # echo "Saving $TAG"
 # docker save "$TAG" > layered.tar
 echo "Squashing $TAG to $TAG_SQUASHED"
-docker export $TAG | docker import $TAG_SQUASHED
+docker export $TAG | docker import - sample:flat $TAG_SQUASHED
 
 # echo "Squashing $TAG"
 # docker-squash -i layered.tar -o squashed.tar -t "$TAG_SQUASHED"
