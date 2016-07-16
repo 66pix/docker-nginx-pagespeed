@@ -3,8 +3,7 @@
     "cmd": "./lambci.sh",
     "docker": {
       "cluster": "lambci-ecs-Cluster-1L3R71YGHV605",
-      "task": "lambci-ecs-BuildTask-1O10LW56SQ09B:1",
-      "runArgs": "-v /var/run/docker.sock:/var/run/docker.sock"
+      "task": "lambci-ecs-BuildTask-1O10LW56SQ09B:1"
     },
     "build": true,
     "branches": {
