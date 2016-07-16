@@ -3,6 +3,8 @@
 set -o nounset
 set -o errexit
 
+printenv
+
 docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
 docker images
 docker save "66pix/nginx-pagespeed:$LAMBCI_BUILD_NUM-layered" > layered.tar
