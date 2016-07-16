@@ -17,8 +17,8 @@ docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
 echo "Building $TAG"
 docker build -t "${TAG}" .
 
-docker export $(docker images -q $TAG) | docker import - $TAG_SQUASHED
-docker export $(docker images -q $TAG) | docker import - $TAG_LATEST
+docker export $TAG | docker import - $TAG_SQUASHED
+docker export $TAG | docker import - $TAG_LATEST
 
 echo "Image check"
 docker images $TAG_SQUASHED
