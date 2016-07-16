@@ -1,9 +1,5 @@
 #!/bin/bash
 
-tar --version
-
-exit
-
 set -o nounset
 set -o errexit
 

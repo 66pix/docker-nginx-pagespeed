@@ -2,9 +2,7 @@ FROM alpine:3.4
 
 WORKDIR /src
 
-RUN apk add --no-cache bash docker tar wget sudo
-RUN wget https://github.com/jwilder/docker-squash/releases/download/v0.2.0/docker-squash-linux-amd64-v0.2.0.tar.gz
-RUN tar -C /usr/local/bin -xzvf docker-squash-linux-amd64-v0.2.0.tar.gz
+RUN apk add --no-cache bash docker wget
 
 ADD . .
 
