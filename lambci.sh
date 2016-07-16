@@ -23,20 +23,23 @@ docker images
 echo "Saving $TAG"
 docker save "$TAG" > layered.tar
 
-echo "Squashing $TAG"
-docker-squash -from root -i layered.tar -o squashed.tar -t $TAG_SQUASHED
+# echo "Squashing $TAG"
+# docker-squash -from root -i layered.tar -o squashed.tar -t "$TAG_SQUASHED"
 
-echo "Loading $TAG_SQUASHED"
-cat squashed.tar | docker load
+# echo "Loading $TAG_SQUASHED"
+# cat squashed.tar | docker load
 
-echo "Image check"
-docker images
+# echo "Image check"
+# docker images
 
-echo "Pushing $TAG_SQUASHED"
-docker push $TAG_SQUASHED
+# echo "Pushing $TAG_SQUASHED"
+# docker push "$TAG_SQUASHED"
+
+echo "Pushing $TAG"
+docker push "$TAG"
 
 echo "Creating latest from $TAG"
-docker-squash -from root -i layered.tar -o squashed.tar -t $TAG_LATEST
+docker-squash -from root -i layered.tar -o squashed.tar -t "$TAG_LATEST"
 
 echo "Squashing latest"
 cat squashed.tar | docker load
@@ -45,4 +48,4 @@ echo "Image check"
 docker images
 
 echo "Pushing latest"
-docker push $TAG_LATEST
+docker push "$TAG_LATEST"
