@@ -20,12 +20,12 @@ echo "Building $TAG"
 docker build -t "$TAG" .
 
 echo "Image check"
-docker images
+docker images $TAG
 
 # echo "Saving $TAG"
 # docker save "$TAG" > layered.tar
 echo "Squashing $TAG to $TAG_SQUASHED"
-docker export $TAG | docker import - sample:flat $TAG_SQUASHED
+docker export $TAG | docker import - $TAG_SQUASHED
 
 # echo "Squashing $TAG"
 # docker-squash -i layered.tar -o squashed.tar -t "$TAG_SQUASHED"
@@ -34,7 +34,7 @@ docker export $TAG | docker import - sample:flat $TAG_SQUASHED
 # cat squashed.tar | docker load
 
 echo "Image check"
-docker images
+docker images $TAG_SQUASHED
 
 exit 1
 
