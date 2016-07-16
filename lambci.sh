@@ -27,7 +27,7 @@ docker images -q "$TAG"
 
 sleep 1
 
-# echo "Saving $TAG"
+echo "Saving $TAG"
 docker save $(docker images -q $TAG) > layered.tar
 # echo "Squashing $TAG to $TAG_SQUASHED"
 # docker export $(docker images -q $TAG) | docker import - $TAG_SQUASHED
@@ -45,13 +45,10 @@ docker images -q "${TAG}"
 
 sleep 1
 
+echo "Pushing $TAG_SQUASHED"
+docker push "$TAG_SQUASHED"
+
 exit
-
-# echo "Pushing $TAG_SQUASHED"
-# docker push "$TAG_SQUASHED"
-
-echo "Pushing $TAG"
-docker push "$TAG"
 
 echo "Creating latest from $TAG"
 docker-squash -i layered.tar -o squashed.tar -t "$TAG_LATEST"
