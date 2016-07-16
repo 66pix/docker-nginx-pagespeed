@@ -6,6 +6,8 @@ set -o errexit
 printenv
 
 TAG="66pix/nginx-pagespeed:$LAMBCI_BUILD_NUM-layered"
+TAG_SQUASHED="66pix/nginx-pagespeed:$LAMBCI_BUILD_NUM"
+TAG_LATEST="66pix/nginx-pagespeed:latest"
 
 docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
 
@@ -17,20 +19,20 @@ echo "Saving $TAG"
 docker save $TAG > layered.tar
 
 echo "Squashing $TAG"
-docker-squash -from root -i layered.tar -o squashed.tar -t "66pix/nginx-pagespeed:$LAMBCI_BUILD_NUM"
+docker-squash -from root -i layered.tar -o squashed.tar -t $TAG_SQUASHED
 
-echo "Loading squashed $TAG"
+echo "Loading $TAG_SQUASHED"
 cat squashed.tar | docker load
 docker images
 
-echo "Pushing $TAG"
-docker push "66pix/nginx-pagespeed:$LAMBCI_BUILD_NUM"
+echo "Pushing $TAG_SQUASHED"
+docker push $TAG_SQUASHED
 
 echo "Creating latest from $TAG"
-docker-squash -from root -i layered.tar -o squashed.tar -t "66pix/nginx-pagespeed:latest"
+docker-squash -from root -i layered.tar -o squashed.tar -t $TAG_LATEST
 
 echo "Squashing latest"
 cat squashed.tar | docker load
 
 echo "Pushing latest"
-docker push "66pix/nginx-pagespeed:latest"
+docker push $TAG_LATEST
