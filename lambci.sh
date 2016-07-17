@@ -18,8 +18,6 @@ echo "Building $TAG"
 docker build -t "${TAG}" .
 
 echo "Flattening base image.."
-# SRC=myrepo:version
-# DST=myrepo:version_flat
 ID=$(docker run -d ${TAG} /bin/bash)
 docker export $ID | docker import - $TAG_SQUASHED
 docker export $ID | docker import - $TAG_LATEST
