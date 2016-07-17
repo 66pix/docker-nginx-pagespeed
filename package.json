@@ -6,9 +6,10 @@
       "task": "lambci-ecs-BuildTask-1O10LW56SQ09B:1",
       "runArgs": "-v /var/run/docker.sock:/var/run/docker.sock"
     },
-    "build": true,
+    "build": false,
     "branches": {
       "master": {
+        "build": true,
         "notifications": {
           "slack": {
             "channel": "#ci"
@@ -16,6 +17,7 @@
         }
       },
       "develop": {
+        "build": true,
         "notifications": {
           "slack": {
             "channel": "#ci"
