@@ -20,7 +20,10 @@ RUN cd /usr/src \
     && wget -q http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz \
     && tar --no-same-owner -xzf nginx-${NGINX_VERSION}.tar.gz \
     && cd nginx-${NGINX_VERSION}/ \
-    && ./configure --add-module=/usr/src/ngx_pagespeed-release-${NPS_VERSION}-beta --with-http_ssl_module \
+    && ./configure \
+      --add-module=/usr/src/ngx_pagespeed-release-${NPS_VERSION}-beta \
+      --with-http_gzip_static_module \
+      --with-http_ssl_module \
     && make \
     && make install
 
